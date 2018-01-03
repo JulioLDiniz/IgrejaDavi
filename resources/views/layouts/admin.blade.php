@@ -140,10 +140,18 @@
           </ul>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Eventos">
-          <a class="nav-link" href="#">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#eventos" >
             <i class="fa fa-fw fa-calendar"></i>
             <span class="nav-link-text">Eventos</span>
           </a>
+          <ul class="sidenav-second-level collapse" id="eventos" >
+            <li>
+              <a href="{!!URL::to('/eventos-novo')!!}"><i class="fa fa-fw fa-plus"></i>Cadastrar</a>
+            </li>
+            <li>
+              <a href="{!!URL::to('/eventos')!!}"><i class="fa fa-fw fa-list"></i>Listar</a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Finanças">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#financas" >
@@ -152,7 +160,7 @@
           </a>
           <ul class="sidenav-second-level collapse" id="financas" >
             <li>
-              <a href="{!!URL::to('/financas-gestao')!!}">Gestão</a>
+              <a href="{!!URL::to('/financas-gestao')!!}"><i class="fa fa-area-chart" aria-hidden="true"></i>Gestão</a>
             </li>
             <li>
               <a href="{!!URL::to('/financas-entrada')!!}"><i class="fa fa-arrow-right "></i>Entrada</a>

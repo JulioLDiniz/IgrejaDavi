@@ -2,11 +2,13 @@
 @section('content')
         <h1 class="text-center">Listagem de Membros</h1>
         @if(Session::has('message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <p class="text-center">{{Session::get('message')}}</p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="container">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p class="text-center">{{Session::get('message')}}</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
 
         @endif
@@ -123,7 +125,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="dtnasc" class="col-form-label">Data de Nascimento:</label>
-                                <input type="text" readonly class="form-control" name="dtnasc" id="dtnasc">
+                                <input type="date" readonly class="form-control" name="dtnasc" id="dtnasc">
                             </div>
 
                     </div>

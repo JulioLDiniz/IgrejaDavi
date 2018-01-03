@@ -43,9 +43,23 @@ class FinancasController extends Controller
         $financa->id_membro = $request->membroid;
         $financa->save();
 
-        Session::flash('message', 'Entrada financeira cadastrada com sucesso!');
+        Session::flash('message', 'Entrada financeira registrada com sucesso!');
         return Redirect::to('/membros');
        
+    }
+    
+    public function saida(Request $request) {
+    	$financa = new financas();
+    	$financa->movimentacao = 'saida';
+    	$financa->finalidade = $request->finalidade;
+    	$financa->valor = str_replace(',','.',$request->valor);
+    	
+    	$financa->date = $request->date;
+    	$financa->observacoes = $request->observacoes;
+    	$financa->save();
+    	
+    	Session::flash('message', 'Saída financeira registrada com sucesso!');
+    	return Redirect::to('/membros');
     }
 
     public function gestao(){

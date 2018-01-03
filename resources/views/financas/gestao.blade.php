@@ -34,12 +34,19 @@
             data: {
                 labels: ["jan", "fev", "mar","abril","maio"],
                 datasets:[{
-                    label: 'ois',
+                    label: 'Entrada do caixa',
                     data: [0,0,0,0,0],
                     borderWidth: 6,
                     borderColor: 'rgba(77,166,253,0.85)',
                     backgroundColor: 'transparent'
-                }]
+                },{
+                    label: 'Saída do caixa',
+                    data: [10,10,10,10,10],
+                    borderWidth: 6,
+                    borderColor: 'red',
+                    backgroundColor: 'transparent'
+                }
+                ]
             }
         });
 
@@ -48,12 +55,13 @@
         $("#mes").change(function(){
             var dias = [];
             var valor = [];
+            var valor2 = [];
             $(".line-chart").css("display", "none");
             $("#loading").css("display", "block");
 
             $.ajax({
                 type: "POST",
-                url: "{{ route('financas-mes') }}",
+                url: "{{ route('financas-mes-entrada') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     mes   : $(this).val()
@@ -63,19 +71,20 @@
                         $(".line-chart").css("display", "none");
                         $(".array-vazio").css("display", "block");
                     }
-                        for (var i=0; i <= data.movimentacao.length - 1; i++){
+                        for (var i=0; i <= data.entrada.length - 1; i++){
 
-                            dias.push(data.movimentacao[i].date);
+
+                            dias.push(data.entrada[i].date);
 //                            valor.push(parseFloat(data.movimentacao[i].valor));
 
 //                            console.log(data.movimentacao[i].date);
 //                            console.log(dias[i]);
-                            if(dias[i] === data.movimentacao[i].date){
-                                valor.push(parseFloat(data.movimentacao[i].soma));
+                            if(dias[i] === data.entrada[i].date || dias[i] === data.saida[i].date){
+                                valor.push(parseFloat(data.entrada[i].soma));
 
-                            }else{
 
                             }
+
 
                         }
 
@@ -88,6 +97,56 @@
                         $("#loading").css("display", "none");
                         $(".array-vazio").css("display", "none");
                         $(".line-chart").css("display", "block");
+
+
+                }
+            })
+            //saida
+            $.ajax({
+                type: "POST",
+                url: "{{ route('financas-mes-saida') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    mes   : $(this).val()
+                },
+                success: function (data) {
+                    if(data.length == null){
+                        $(".line-chart").css("display", "none");
+                        $(".array-vazio").css("display", "block");
+                    }
+                    for (var i=0; i <= data.movimentacao.length - 1; i++){
+
+                        for(var j=0;j<=dias.length;j++){
+                            if(dias[j] === data.movimentacao[i].date){
+                                console.log(dias[j]);
+                            }
+
+                        }
+
+                            dias.push(data.movimentacao[i].date);
+                            valor2.push(parseFloat(data.movimentacao[i].soma));
+
+//                            console.log(data.movimentacao[i].date);
+                            console.log(dias[i]);
+                            if(dias[i] === data.movimentacao[i].date){
+                                valor2.push(parseFloat(data.movimentacao[i].soma));
+
+                            }
+
+
+
+
+                    }
+
+                    chartGraph.data.datasets[1].data = valor2;
+                    chartGraph.data.labels = dias;
+                    chartGraph.update();
+
+
+
+                    $("#loading").css("display", "none");
+                    $(".array-vazio").css("display", "none");
+                    $(".line-chart").css("display", "block");
 
 
                 }

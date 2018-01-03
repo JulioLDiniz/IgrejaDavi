@@ -41,6 +41,8 @@ Route::get('/financas-saida', function(){
 
 Route::post('/financas-entrada', 'FinancasController@entrada')->name('financas.entrada');
 
+Route::post('/financas-saida', 'FinancasController@saida')->name('financas.saida');
+
 
 
 Route::get('financas-gestao', function(){
@@ -50,14 +52,39 @@ Route::get('financas-gestao', function(){
 
 });
 
-Route::post('financas-mes', function() {
-    $movimentacao = \App\financas::select(\DB::raw('date, sum(valor) as soma'))->whereMonth('date', request()->mes)->groupBy('date')->get();
+Route::post('financas-mes-entrada', function() {
+    $entrada = \App\financas::select(\DB::raw('date, sum(valor) as soma'))->where('movimentacao', 'entrada')->whereMonth('date', request()->mes)->groupBy('date')->get();
+
+
+
+    return response()->json([
+        'entrada' => $entrada
+    ]);
+
+})->name('financas-mes-entrada');
+
+Route::post('financas-mes-saida', function() {
+    $movimentacao = \App\financas::select(\DB::raw('date, sum(valor) as soma'))->where('movimentacao', 'saida')->whereMonth('date', request()->mes)->groupBy('date')->get();
 
 
     return response()->json([
         'movimentacao' => $movimentacao
     ]);
 
-})->name('financas-mes');
+})->name('financas-mes-saida');
+
+Route::get('/eventos-novo',function(){
+    return view('eventos.novo');
+});
+
+Route::post('/eventos-cadastrar', 'EventosController@cadastrar')->name('eventos.cadastrar');
+
+Route::get('/eventos', 'EventosController@index')->name('eventos.index');
+
+Route::post('eventos-excluir', 'EventosController@excluir')->name('eventos.excluir');
+
+Route::get('/alterar-status-andamento','EventosController@alterarStatusAndamento');
+
+Route::get('/encerrar-evento','EventosController@encerrarEvento');
 
 
