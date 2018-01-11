@@ -170,6 +170,9 @@
             </li>
           </ul>
         </li>
+        <li class="nav-item" data-toggle="tooltip" title="E-mail">
+          <a class="nav-link" href="{!!URL::to('/enviar-email')!!}"><i class="fa fa-envelope-o" aria-hidden="true"></i> E-mail</a>
+        </li>
 
       </ul>
       <ul class="navbar-nav sidenav-toggler">

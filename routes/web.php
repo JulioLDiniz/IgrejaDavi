@@ -87,4 +87,10 @@ Route::get('/alterar-status-andamento','EventosController@alterarStatusAndamento
 
 Route::get('/encerrar-evento','EventosController@encerrarEvento');
 
+Route::get('/enviar-email', function(){
+   return view('email.envio-email');
+});
+
+Route::post('/mail-store', 'EmailController@enviar')->name('mail.store');
+
 
