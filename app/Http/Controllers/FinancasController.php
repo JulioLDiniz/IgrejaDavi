@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class FinancasController extends Controller
 {
+    public function __construct(){
+        $this->middleware('authe');
+    }
+
     public function index(){
         $membros = Membros::all(['id','nome']);
         return view('financas.entrada', compact('membros'));

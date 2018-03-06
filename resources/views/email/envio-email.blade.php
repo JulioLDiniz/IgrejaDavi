@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'Envio de E-mail')
 @section('content')
 
     <h1 class="text-center">Enviar e-mail</h1>

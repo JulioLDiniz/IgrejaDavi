@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class EmailController extends Controller
 {
+    public function __construct(){
+        $this->middleware('authe');
+    }
+
     public function enviar(Request $request){
         Mail::send('email.contact', $request->all(), function($msg){
             $msg->subject('Igreja Davi');

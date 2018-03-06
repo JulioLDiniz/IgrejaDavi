@@ -12,8 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('layouts/admin');
+    return view('login.login');
 });
+Route::post('/login', 'LogController@Login');
+
+Route::get('/logout', 'LogController@Logout');
+
 Route::get('/admin', function () {
     return view('index');
 });
@@ -93,4 +97,31 @@ Route::get('/enviar-email', function(){
 
 Route::post('/mail-store', 'EmailController@enviar')->name('mail.store');
 
+Route::get('/relatorio-eventos', function (){
+    return view('relatorio.relatorio-eventos');
+})->name('relatorio.eventos');
 
+Route::get('/relatorio-financas', function (){
+    return view('relatorio.relatorio-financas');
+})->name('relatorio.financas');
+
+Route::post('/buscar-dados', 'RelatorioController@buscarDados');
+
+Route::get('/imprimir', function(){
+    $pdf = App::make('dompdf.wrapper');
+    $pdf->loadHTML('<h1>Test</h1>');
+    return $pdf->stream();
+});
+
+Route::get('/imprimir-financas/{financas}', 'RelatorioController@geraRelatorioFinancas');
+
+Route::get('/imprimir-eventos/{eventos}', 'RelatorioController@geraRelatorioEventos');
+
+
+
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

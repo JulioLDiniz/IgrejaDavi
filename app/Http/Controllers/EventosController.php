@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Session;
 
 class EventosController extends Controller
 {
+    public function __construct(){
+        $this->middleware('authe');
+    }
+
     public function index(){
         $eventos = eventos::all();
         return view('eventos.index', compact('eventos'));

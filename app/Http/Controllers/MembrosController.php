@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Redirect;
 
 class MembrosController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('authe');
+    }
+
    public function store(Request $request){
       Membros::create([
           'nome' =>$request['nome'],

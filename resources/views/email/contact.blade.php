@@ -8,7 +8,6 @@
 </head>
 <body>
     <p><strong>Igreja Davi</strong></p>
-    <p><strong>E-mail:</strong>julio.diniz4@gmail.com</p>
     <p><strong>Mensagem:</strong>{!! $mensagem !!}</p>
 </body>
 </html>
